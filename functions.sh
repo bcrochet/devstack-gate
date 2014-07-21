@@ -25,6 +25,13 @@ function is_ubuntu {
     lsb_release -i 2>/dev/null | grep -iq "ubuntu"
 }
 
+function is_centos {
+    lsb_release -i 2>/dev/null | grep -iq "centos"
+}
+
+function is_redhat {
+    lsb_release -i 2>/dev/null | grep -iq "redhat"
+}
 
 function function_exists {
     type $1 2>/dev/null | grep -q 'is a function'
@@ -81,7 +88,7 @@ function start_timer {
     # first make sure the time is right, so we don't go into crazy land
     # later if the system decides to apply an ntp date and we jump forward
     # 4 hrs (which has happened)
-    if is_fedora; then
+    if is_fedora || is_centos || is_redhat; then
         local ntp_service='ntpd'
     elif is_ubuntu; then
         local ntp_service='ntp'
